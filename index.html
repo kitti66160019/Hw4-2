@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการคลังสินค้า</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ระบบจัดการคลังสินค้าขนาดเล็ก</h1>
+
+        <div class="form">
+            <input type="text" id="productName" placeholder="ชื่อสินค้า">
+            <input type="number" id="productPrice" placeholder="ราคา">
+            <input type="number" id="productStock" placeholder="จำนวนคงเหลือ">
+            <select id="productCategory">
+                <option value="electronics">อิเล็กทรอนิกส์</option>
+                <option value="clothing">เสื้อผ้า</option>
+                <option value="food">อาหาร</option>
+            </select>
+            <button onclick="addProduct()">เพิ่มสินค้า</button>
+            <button onclick="generateSalesReport()">ยอดขายทั้งหมด</button>
+        </div>
+
+        <h2>รายการสินค้า</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ชื่อ</th>
+                    <th>ราคา</th>
+                    <th>คงเหลือ</th>
+                    <th>ประเภท</th>
+                    <th>ขาย</th>
+                    <th>ลบ</th>
+                </tr>
+            </thead>
+            <tbody id="productTable"></tbody>
+        </table>
+        <h2>สินค้าขายดี</h2>
+        <p id="topProductsText"></p>
+
+
+        <button onclick="generateSalesReport()">ดูรายงานยอดขาย</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
