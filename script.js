@@ -69,11 +69,17 @@ function showBestSellers() {
         return;
     }
 
-    let topThree = sortedProducts.slice(0, 3).map((product, index) =>
-        `${index + 1}. ${product.name} - ขายแล้ว ${product.totalSales} ชิ้น`
-    ).join(" | ");
+    let topThree = sortedProducts
+        .filter(product => product.totalSales > 0) // แสดงเฉพาะสินค้าที่มียอดขาย
+        .slice(0, 3)
+        .map((product, index) => `${index + 1}. ${product.name} (${product.totalSales} ชิ้น)`)
+        .join(" | ");
 
-    topProductsText.textContent = `🔥 สินค้าขายดี: ${topThree}`;
+    if (topThree.length > 0) {
+        topProductsText.textContent = `สินค้าขายดี : ${topThree}`;
+    } else {
+        topProductsText.textContent = "ยังไม่มีสินค้าขายดี";
+    }
 }
 
 // อัปเดตรายการสินค้า และเพิ่มปุ่ม "ลบ"
@@ -95,5 +101,14 @@ function renderTable() {
 }
 
 function loadProducts() {
+    products = JSON.parse(localStorage.getItem("products")) || [];
     renderTable();
+    showBestSellers(); // โหลดสินค้าขายดีตอนเริ่มต้น
+}
+
+function saveAndRender() {
+    localStorage.setItem("products", JSON.stringify(products));
+    renderTable();
+    checkLowStock();
+    showBestSellers(); // อัปเดตสินค้าขายดีทุกครั้งที่ขายสินค้า
 }
